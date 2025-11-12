@@ -28,7 +28,8 @@ class CarFavoriteController extends Controller
         $favorite = new ClientFavoriteCar($validated);
         $favorite->save();
 
-        return redirect('/favorites');
+        return redirect('/favorites')
+            ->with('success', 'Автомобиль успешно добавлен в избранное');
     }
 
     public function edit(string $id)

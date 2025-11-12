@@ -19,10 +19,10 @@ class CarController extends Controller
 
     public function show($id)
     {
-        $car = Car::with('rentalOrders.client')->find($id);
-        return view('cars.show', [
-            'car' => Car::all()->where('id', $id)->first(),
-        ]);
+
+        $car = Car::with('rentalOrders.client')->findOrFail($id);
+
+        return view('cars.show', compact('car'));
     }
 
 }

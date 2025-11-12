@@ -1,11 +1,7 @@
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Заказ аренды #{{ $rentalOrder->id }}</title>
-</head>
-<body>
-<h1>Заказ аренды #{{ $rentalOrder->id }}</h1>
+@extends('layout')
+@section('title', 'Заказ аренды')
+@section('content')
+<h1>Заказ аренды № {{ $rentalOrder->id }}</h1>
 
 <h2>Информация о клиенте:</h2>
 <p><strong>Имя:</strong> {{ $rentalOrder->client->name }} {{ $rentalOrder->client->lastName }}</p>
@@ -28,5 +24,4 @@
 @else
     <p>Оплата по этому заказу не найдена.</p>
 @endif
-</body>
-</html>
+@endsection

@@ -6,6 +6,7 @@ use App\Models\RentalOrder;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::composer('*', function ($view) {
+            $view->with('user', auth()->user());
+        });
+
         Paginator::defaultView('pagination::default');
 
         Gate::define('destroy-rental-order', function (User $user, RentalOrder $rentalOrder) {

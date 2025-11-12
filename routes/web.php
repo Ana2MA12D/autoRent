@@ -19,8 +19,7 @@ Route::get('/hello', function () {
 Route::get('/clients', [ClientController::class, 'index']);
 Route::get('/clients/{id}', [ClientController::class, 'show']);
 Route::get('/rental-orders', [RentalOrderController::class, 'index']);
-Route::get('/rental-orders/{id}', [RentalOrderController::class, 'show']);
-Route::get('/cars', [CarController::class, 'index']); // добавлено
+Route::get('/cars', [CarController::class, 'index']);
 Route::get('/cars/{id}', [CarController::class, 'show']);
 
 
@@ -36,15 +35,18 @@ Route::get('/favorites/destroy/{id}', [CarFavoriteController::class, 'destroy'])
 Route::get('/rental_orders', [RentalOrderController::class, 'index'])->name('rental_orders.index');
 Route::get('/rental_orders/create', [RentalOrderController::class, 'create'])->name('rental_orders.create')->middleware('auth');
 Route::post('/rental_orders', [RentalOrderController::class, 'store'])->name('rental_orders.store');
-Route::get('/rental_orders/{id}', [RentalOrderController::class, 'show'])->name('rental_orders.show');
+Route::get('/rental_orders/{id}', [RentalOrderController::class, 'show'])->name('rental_orders.show')->whereNumber('id');
 Route::get('/rental_orders/{id}/edit', [RentalOrderController::class, 'edit'])->name('rental_orders.edit')->middleware('auth');
 Route::put('/rental_orders/{id}', [RentalOrderController::class, 'update'])->name('rental_orders.update')->middleware('auth');
-Route::get('/rental_orders/destroy/{id}', [RentalOrderController::class, 'destroy'])->name('rental_orders.destroy')->middleware('auth');
+Route::delete('/rental_orders/{id}', [RentalOrderController::class, 'destroy'])->name('rental_orders.destroy')->middleware('auth');
 
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::post('/auth', [LoginController::class, 'authenticate']);
+Route::get('/auth', function () {
+    return redirect('/login');
+});
 
 Route::get('/error', function () {
     return view('error', ['message' => session('message')]);

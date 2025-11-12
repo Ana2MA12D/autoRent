@@ -12,6 +12,9 @@ class RentalOrderController extends Controller
 {
     public function index()
     {
+        if (!auth()->check() || !auth()->user()->is_admin) {
+            return redirect('/')->withErrors(['error' => 'У вас нет разрешения на просмотр клиентов.']);
+        }
         return view('rental_orders.index', [
             'rentalOrders' => RentalOrder::with(['client', 'car'])->get()
         ]);
@@ -35,18 +38,16 @@ class RentalOrderController extends Controller
 
         $car = Car::find($validated['car_id']);
 
-        // Расчет количества дней и общей стоимости
         $days = \Carbon\Carbon::parse($validated['pickup_date'])->diffInDays($validated['dropoff_date']);
-        $dailyPrice = $car->price ?? $car->daily_price ?? 0; // Используем price или daily_price
+        $dailyPrice = $car->price ?? $car->daily_price ?? 0;
         $totalPrice = $days * $dailyPrice;
 
-        // Создаем заказ с рассчитанной стоимостью
         $rentalOrder = new RentalOrder();
         $rentalOrder->client_id = $validated['client_id'];
         $rentalOrder->car_id = $validated['car_id'];
         $rentalOrder->pickup_date = $validated['pickup_date'];
         $rentalOrder->dropoff_date = $validated['dropoff_date'];
-        $rentalOrder->total_price = $totalPrice; // Добавляем рассчитанную стоимость
+        $rentalOrder->total_price = $totalPrice;
         $rentalOrder->save();
 
         return redirect('/rental_orders')->with('success', 'Заказ успешно создан!');
@@ -97,6 +98,6 @@ class RentalOrderController extends Controller
                 'У вас нет разрешения на удаление автомобиля номер ' . $id);
         }
         RentalOrder::destroy($id);
-        return redirect('/rental-orders');
+        return redirect('/rental-orders')->with('success', 'Запись успешно удалена.');
     }
 }

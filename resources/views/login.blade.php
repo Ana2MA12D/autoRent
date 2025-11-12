@@ -1,40 +1,48 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>609-31</title>
-    <style> .is-invalid {
-            color: #800007;
-        }</style>
-</head>
-<body>
-@if($user)
-    <h2>Здравствуйте, {{ $user->name }}</h2>
-    <a href="{{ url('logout') }}">Выйти из системы</a>
-@else
-    <h2>Вход в систему</h2>
-    <form method="post" action="{{ url('auth') }}">
+@extends('layout')
+@section('title', 'Login')
+@section('content')
+    <style>
+    .login_form--inp {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        width: 60%;
+
+
+        input, button {
+            height: 50px;
+            width: 100%;
+        }
+
+        button {
+            border: #424040 solid;
+            color: #424040;
+            font-weight: bold;
+            font-size: 18px;
+
+            &:hover {
+                background-color: #424040;
+                color: #a8a8a8;
+            }
+        }
+    }
+    </style>
+@if(!Auth::user())
+    <h2 style="text-align: center;">Добро пожаловать! <br> Пожалуйста, войдите в систему.</h2>
+    <form class="login_form--inp" method="post" action="{{ url('auth') }}">
         @csrf
-        <label>E-mail</label>
-        <input type="text" name="email" value="{{ old('email') }}">
-        @error('email')
-        <div class="is-invalid">{{ $message }}</div>
-        @enderror
-        <br>
-        <label>Пароль</label>
-        <input type="password" name="password" value="{{ old('password') }}">
-        @error('password')
-        <div class="is-invalid">{{ $message }}</div>
-        @enderror
-        <br>
-        <input type="submit">
+        <input class="form-control" type="text" placeholder="Логин" name="email" aria-label="Логин"
+               value="{{ old('email') }}"/>
+        <input class="form-control" type="password" placeholder="Пароль" name="password" aria-label="Пароль"
+               value="{{ old('password') }}"/>
+        <button class="btn" type="submit">Войти</button>
     </form>
-    @error('error')
-    <div class="is-invalid">{{ $message }}</div>
-    @enderror
+@else
+    <ul class="navbar-nav">
+        <a class="nav-link active" href="#"><i class="fa fa-user" style="font-size: 20px; color: white;"></i>
+            <span>   </span>{{ Auth::user()->name }}</a>
+        <a class="btn" href="{{ url('logout') }}">Выйти</a>
+    </ul>
 @endif
-</body>
-</html>
+@endsection
