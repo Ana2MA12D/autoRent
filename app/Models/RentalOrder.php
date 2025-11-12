@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class RentalOrder extends Model
 {
+    protected $fillable = [
+        'client_id',
+        'car_id',
+        'pickup_date',
+        'dropoff_date',
+        'total_price'
+    ];
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);

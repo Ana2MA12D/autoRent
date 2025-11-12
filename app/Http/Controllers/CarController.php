@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $cars = Car::all();
+//        $cars = Car::all();
+        $perpage = $request->perpage ?? 2;
         return view('cars.index', [
-            'cars' => Car::all()
+            'cars' => Car::paginate($perpage)->withQueryString()
         ]);
     }
 

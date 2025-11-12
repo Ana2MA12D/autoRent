@@ -30,3 +30,12 @@ Route::post('/favorites', [CarFavoriteController::class, 'store'])->name('favori
 Route::get('/favorites/edit/{id}', [CarFavoriteController::class, 'edit'])->name('favorites.edit');
 Route::put('/favorites/update/{id}', [CarFavoriteController::class, 'update'])->name('favorites.update');
 Route::get('/favorites/destroy/{id}', [CarFavoriteController::class, 'destroy'])->name('favorites.destroy');
+
+
+Route::get('/rental_orders', [RentalOrderController::class, 'index'])->name('rental_orders.index');
+Route::get('/rental_orders/create', [RentalOrderController::class, 'create'])->name('rental_orders.create');
+Route::post('/rental_orders', [RentalOrderController::class, 'store'])->name('rental_orders.store');
+Route::get('/rental_orders/{id}', [RentalOrderController::class, 'show'])->name('rental_orders.show');
+Route::get('/rental_orders/{id}/edit', [RentalOrderController::class, 'edit'])->name('rental_orders.edit');
+Route::put('/rental_orders/{id}', [RentalOrderController::class, 'update'])->name('rental_orders.update');
+Route::get('/rental_orders/destroy/{id}', [RentalOrderController::class, 'destroy'])->name('rental_orders.destroy');
