@@ -46,13 +46,13 @@
     </nav>
     <h3>Элементов на странице:</h3>
     <form method="get" action="{{url('cars')}}">
-        <select class="page--choice" name="perpage" onchange="this.form.submit()">
+        <select class="page--choice" name="perpage">
             <option value="2" @if($paginator->perPage() == 2) selected @endif>2</option>
             <option value="3" @if($paginator->perPage() == 3) selected @endif>3</option>
             <option value="4" @if($paginator->perPage() == 4) selected @endif>4</option>
-            <option value="5" @if($paginator->perPage() == 4) selected @endif>5</option>
-            <option value="6" @if($paginator->perPage() == 4) selected @endif>6</option>
-            <option value="7" @if($paginator->perPage() == 4) selected @endif>7</option>
+            <option value="5" @if($paginator->perPage() == 5) selected @endif>5</option>
+            <option value="6" @if($paginator->perPage() == 6) selected @endif>6</option>
+            <option value="7" @if($paginator->perPage() == 7) selected @endif>7</option>
             <option value="10" @if($paginator->perPage() == 10) selected @endif>10</option>
         </select>
         <input class="pagination-change__btn" type="submit" value="Изменить">
