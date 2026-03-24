@@ -51,3 +51,6 @@ Route::get('/auth', function () {
 Route::get('/error', function () {
     return view('error', ['message' => session('message')]);
 });
+
+
+

@@ -32,3 +32,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/client' , [ClientControllerApi::class, 'index']);
     Route::get('logout', [AuthController::class, 'logout']);
 });
+
+
+Route::get('/cars_total', [CarsControllerApi::class, 'total']);
+Route::get('/cars', [CarsControllerApi::class, 'index']);
+Route::get('/clients_total', [ClientControllerApi::class, 'total']);
+Route::get('/clients', [ClientControllerApi::class, 'index']);

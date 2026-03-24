@@ -10,9 +10,16 @@ class CarsControllerApi extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response(Car::all());
+        return response(Car::limit($request->perpage ?? 5)
+            ->offset(($request->perpage ?? 5) * ($request->page ?? 0))
+            ->get());
+    }
+
+    public function total()
+    {
+        return response(Car::all()->count());
     }
 
     /**
