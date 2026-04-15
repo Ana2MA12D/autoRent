@@ -24,11 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Paginator::defaultView('pagination::default');
+
         View::composer('*', function ($view) {
             $view->with('user', auth()->user());
         });
-
-        Paginator::defaultView('pagination::default');
 
         Gate::define('destroy-rental-order', function (User $user, RentalOrder $rentalOrder) {
             return $user->is_admin;

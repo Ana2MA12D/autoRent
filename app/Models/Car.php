@@ -12,6 +12,15 @@ class Car extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'brand',
+        'model',
+        'gov_number',
+        'image',
+        'status',
+        'price',
+    ];
+
     public function rentalOrders(): HasMany
     {
         return $this->hasMany(RentalOrder::class);

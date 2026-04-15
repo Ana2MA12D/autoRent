@@ -14,7 +14,7 @@ Route::get('/car', [CarsControllerApi::class, 'index']);
 Route::get('/car/{id}', [CarsControllerApi::class, 'show']);
 Route::get('/rentalorder', [RentalOrderControllerApi::class, 'index']);
 Route::get('/rentalorder/{id}', [RentalOrderControllerApi::class, 'show']);
-Route::middleware('auth:sanctum')->get('/client',[ClientControllerApi::class, 'index']);
+Route::middleware('auth:sanctum')->get('/client', [ClientControllerApi::class, 'index']);
 Route::get('/client/{id}', [ClientControllerApi::class, 'show']);
 Route::get('/payment', [PaymentControllerApi::class, 'index']);
 Route::get('/payment/{id}', [PaymentControllerApi::class, 'show']);
@@ -29,8 +29,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::get('/client' , [ClientControllerApi::class, 'index']);
+    Route::get('/client', [ClientControllerApi::class, 'index']);
     Route::get('logout', [AuthController::class, 'logout']);
+
 });
 
 
@@ -38,3 +39,6 @@ Route::get('/cars_total', [CarsControllerApi::class, 'total']);
 Route::get('/cars', [CarsControllerApi::class, 'index']);
 Route::get('/clients_total', [ClientControllerApi::class, 'total']);
 Route::get('/clients', [ClientControllerApi::class, 'index']);
+
+Route::middleware('auth:sanctum')->post('/car', [CarsControllerApi::class, 'store']);
+Route::middleware('auth:sanctum')->post('/rental_order', [RentalOrderControllerApi::class, 'store']);

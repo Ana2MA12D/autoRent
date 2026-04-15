@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Client extends Model
 {
+    protected $fillable = [
+        'name',
+        'lastName',
+    ];
     public function rentalOrders(): HasMany
     {
         return $this->hasMany(RentalOrder::class);
